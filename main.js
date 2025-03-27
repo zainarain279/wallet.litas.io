@@ -286,11 +286,11 @@ async function main() {
     console.log("------------------------------------------------------------");
 
     for (let i = 0; i < accounts.length; i++) {
-      console.log("Processing account", i + 1);
+      console.log("In progress with account", i + 1);
       const proxy = proxies[i].trim();
       const agent = new HttpsProxyAgent(proxy);
 
-      console.log("ℹ️ Getting token:");
+      console.log("ℹ️ Getting token is:");
       const xtokenLogin = await getXToken('', agent);
       const body = {
         username: accounts[i].split(",")[0].trim(),
@@ -298,12 +298,12 @@ async function main() {
       };
       const { accessToken } = await login(body, agent, xtokenLogin.xtoken, xtokenLogin.cookie);
       if (!accessToken) {
-        console.log("Error: Login failed");
+        console.log("Error cannot log in");
         continue;
       }
       const { user, balance } = await getInfo(accessToken, agent);
-      console.log("ℹ️ Username:", user.nickName);
-      console.log("ℹ️ Balance:", balance);
+      console.log("ℹ️ username To be:", user.nickName);
+      console.log("ℹ️ balance:", balance);
 
       const { xtoken, cookie } = await getXToken(accessToken, agent, user.nickName);
 
@@ -327,10 +327,10 @@ async function main() {
         );
         console.log(claimAgain);
       }
-      console.log("♾️ Completed account", i + 1);
+      console.log("♾️  Account completed ", i + 1);
       console.log("-------------------------------------------------");
     }
-    console.log("♾️ Waiting 3 hours to continue");
+    console.log("♾️  Chờ 3 tiếng để tiếp tục");
     await new Promise((resolve) => setTimeout(resolve, (3 * 60 * 60 * 1000) + 20 * 1000));
   }
 }
